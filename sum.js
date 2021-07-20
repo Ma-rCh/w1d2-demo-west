@@ -10,27 +10,45 @@ if (args.length < 2) {
   process.exit();
 }
 
-// create an accumulator
-let total = 0;
+// return an array of converted values to number
+const convertToNums = function (nums) {
+  const output = [];
 
-// map => loop + transformation to each element in the array
-
-for (let num of args) {
-  const nb = Number(num);
-  // edge case: If any argument is not a whole number, skip it.
-  // edge case: If any argument is not a number, output an error message.
-  if (isNaN(nb)) {
-    console.log('Please enter only numbers');
-    // return or process.exit();
-    process.exit();
+  for (let num of nums) {
+    output.push(Number(num));
   }
 
-  if (Number.isInteger(nb)) {
-    // add them up
-    // total <= total + num;
-    total += nb;
-    console.log('nb:', nb, 'type:', typeof nb, 'total:', total);
-  }
-}
+  return output;
+};
 
-console.log('Total:', total);
+// Single Responsibility principle => each function should achieve a single goal
+
+const sum = function (nums) {
+  // create an accumulator
+  let total = 0;
+
+  // map => loop + transformation to each element in the array
+
+  for (let num of nums) {
+
+    // edge case: If any argument is not a whole number, skip it.
+    // edge case: If any argument is not a number, output an error message.
+    if (isNaN(num)) {
+      console.log('Please enter only numbers');
+      // return or process.exit();
+      process.exit();
+    }
+
+    if (Number.isInteger(num)) {
+      // add them up
+      // total <= total + num;
+      total += num;
+      // console.log('num:', num, 'type:', typeof num, 'total:', total);
+    }
+  }
+
+  return total;
+};
+
+const result = sum(convertToNums(args));
+console.log('result:', result);
